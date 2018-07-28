@@ -1,33 +1,11 @@
-# vue-mdeditor
+# JekyllEditor
 
-> 基于VUE的markdown文本编辑器
-
-## 更新历史
-
-* 2017/08/08
-    * 修复组件配置属性的判定错误，感谢[Imprevia](https://github.com/Imprevia)
-* 2017/03/29
-    * 编辑器双向同步滚动功能
-    * 支持配置左上角版权标志（吃水不忘挖井人，谢过了）,
-    * 优化表格快捷输入
-    * 其他优化
-* 2017/03/27  
-    * 新增顶部窗口配置
-    * 优化参数配置可能出现的bug
-    * 优化组件传值，增加html格式的输出内容，便于用户上传
-    * 修复文档部分错误
-* 2017/03/24 
-    * 初始化项目
-    * 完成基本的功能，包括：
-        * H1-H6标题等快捷输入
-        * 编辑区域tab缩进
-        * 编译后文件预览并高亮
-        * VUE组件传值，配置输入和输出等
+> 基于VUE的Jekyll博文编辑器
 
 ## DEMO案例
 >  我知道你想先看看效果，特意准备了在线DEMO，点进去看看吧
 
-**传送门** ======> [vue-mdeditor](https://ovenslove.github.io/vue-mdEditor/)
+**传送门** ======> [JekyllEditor](http://www.xjiangwei.cn/jekylleditor.html#/)
 
 ## 运行实例
 
@@ -131,15 +109,6 @@ export default {
     }
 }
 ```
-## 效果展示
+## 其他说明
 
-![vue-mdeditor](http://static-oven.b0.upaiyun.com/github-resource/markdownEditor.png)
-
-## 后期更新
-
-1. 更多的语法支持
-2. 更丰富的API文档
-3. 更人性化的使用体验
-4. 更傻瓜式的配置方式
-
-> 喜欢就关注一下吧。@_@!!!
+本项目使用的markdown编辑器来自[vue-mdEditor](https://github.com/ovenslove/vue-mdEditor)

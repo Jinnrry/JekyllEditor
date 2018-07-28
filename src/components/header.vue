@@ -1,6 +1,11 @@
 <template>
 
   <div class="container" id="form">
+    <h2>Jekyll Editor 博文编辑器</h2>
+
+    <div>下面请填写Jekyll博文头部信息</div>
+
+
     <form action="" method="get">
       <div class="form-group">
         <label for="title">标题</label>
@@ -35,7 +40,7 @@
           bg:this.bg,
           author:this.author
         }
-        }" class="btn btn-submit btn-primary " >Go </router-link>
+        }" class="btn btn-submit btn-default " >Go </router-link>
 
     </form>
 

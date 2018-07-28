@@ -1,8 +1,9 @@
 <template>
     <div class="indexContainer">
         <div class="btnsContainer">
-            <div class="btn" @click="getMdValueFn">获取mdValue</div>
-          <router-link to="/header">Go to Foo</router-link>
+            <div class="btn" @click="getMdValueFn">预览生成文件</div>
+            <div class="btn" @click="saveFile">下载文章</div>
+          <router-link to="/"  class="btn btn-default" >返回</router-link>
 
         </div>
         <div class="maskContainer" v-if="dilogStatus">
@@ -34,7 +35,7 @@
                 msgShow:'我要显示的内容',
                 dilogStatus:false,
                 msg: {
-                    mdValue:'## Vue-markdownEditor'
+                    mdValue:'## Your Title'
                 }
             }
         },
@@ -46,8 +47,37 @@
                 // res会传回一个data,包含属性mdValue和htmlValue，具体含义请自行翻译
                 this.msg=res;
             },
+            //获取当前时间，格式YYYY-MM-DD
+            getNowFormatDate:function () {
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + seperator1 + month + seperator1 + strDate;
+                return currentdate;
+            },
             getMdValueFn:function(){
-                this.msgShow="title:"+this.$route.query.title+this.msg.mdValue;
+                this.msgShow="---\n" +
+                "layout:     post\n" +
+                "title:      \""+this.$route.query.title+"\"\n" +
+                "subtitle:   \" "+this.$route.query.subtitle+"\"\n" +
+                "date:       "+this.getNowFormatDate()+" 12:00:00\n" +
+                "author:     \""+this.$route.query.author+"\"\n" +
+                "header-img: \"img/"+this.$route.query.bg+".jpg\"\n" +
+                "catalog: true\n" +
+                "tags:\n" ;
+                var tags=this.$route.query.tags.split(',');
+                for ( var i=0;i<tags.length;i++ ){
+                    this.msgShow+="    - "+tags[i]+"\n";
+                }
+                this.msgShow+="---\n"+ this.msg.mdValue;
                 this.dilogStatus=true;
             },
             getHtmlValueFn:function(){
@@ -58,8 +88,28 @@
             closeMaskFn:function(){
                 this.msgShow='';
                 this.dilogStatus=false;
+            },
+            saveFile:function () {
+                this.msgShow="---\n" +
+                    "layout:     post\n" +
+                    "title:      \""+this.$route.query.title+"\"\n" +
+                    "subtitle:   \" "+this.$route.query.subtitle+"\"\n" +
+                    "date:       "+this.getNowFormatDate()+" 12:00:00\n" +
+                    "author:     \""+this.$route.query.author+"\"\n" +
+                    "header-img: \"img/"+this.$route.query.bg+".jpg\"\n" +
+                    "catalog: true\n" +
+                    "tags:\n" ;
+                var tags=this.$route.query.tags.split(',');
+                for ( var i=0;i<tags.length;i++ ){
+                    this.msgShow+="    - "+tags[i]+"\n";
+                }
+                this.msgShow+="---\n"+ this.msg.mdValue;
+                var content =this.msgShow;
+                var file = new File([content], this.getNowFormatDate()+"-name.markdown", { type: "text/plain;charset=utf-8" });
+                saveAs(file);
             }
-        }
+
+    }
     }
 </script>
 
@@ -156,7 +206,7 @@
                     position: absolute;
                     width: 70%;
                     height: 2px;
-                    display: bblock;
+                    display: block;
                     background: #fff;
                     left: 15%;
                     top: calc(50% - 1px);
@@ -169,7 +219,7 @@
                     position: absolute;
                     width: 70%;
                     height: 2px;
-                    display: bblock;
+                    display: block;
                     background: #fff;
                     left: 15%;
                     top: calc(50% - 1px);
