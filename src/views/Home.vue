@@ -9,6 +9,9 @@
         <el-input v-model="form.subtitle"></el-input>
       </el-form-item>
 
+      <el-form-item label="文件名">
+        <el-input v-model="form.filename"></el-input>
+      </el-form-item>
 
       <el-form-item label="Tags">
         <el-input v-model="form.tags"></el-input>
@@ -30,6 +33,7 @@
               subtitle:this.form.subtitle,
               tags:this.form.tags,
               bg:this.form.bg,
+              filename:this.form.filename,
               author:this.form.author
             }
         }" class="btn btn-submit btn-default ">
@@ -50,6 +54,7 @@ export default {
   data: function () {
     return {
       form: {
+        filename: '',
         title: '',
         subtitle: '',
         tags: '',

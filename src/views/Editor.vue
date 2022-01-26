@@ -32,7 +32,7 @@ export default {
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
     },
-    handleOnSave(text, html) {
+    handleOnSave(text) {
       this.msgShow = "---\n" +
           "layout:     post\n" +
           "title:      \"" + this.$route.query.title + "\"\n" +
@@ -48,8 +48,9 @@ export default {
       }
       this.msgShow += "---\n" + text;
       var content = this.msgShow;
-      var file = new File([content], this.getNowFormatDate() + "-name.markdown", {type: "text/plain;charset=utf-8"});
-      saveAs(file);
+      var file = new File([content], this.getNowFormatDate() + "-" + this.$route.query.filename + ".markdown", {type: "text/plain;charset=utf-8"});
+      var FileSaver = require('file-saver');
+      FileSaver.saveAs(file);
     }
   }
 }
