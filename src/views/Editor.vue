@@ -1,6 +1,7 @@
 <template>
   <div class="editor">
-    {{title}}
+    <v-md-editor v-model="text" height="800px" right-toolbar="preview toc sync-scroll" @save="handleOnSave"
+                 :default-fullscreen="true"></v-md-editor>
   </div>
 </template>
 
@@ -11,16 +12,12 @@ export default {
   name: 'index',
   data() {
     return {
-      title: this.$route.query.title,
-      subtitle: this.$route.query.subtitle,
-      date: this.getNowFormatDate() + " 12:00:00",
-      author: this.$route.query.author,
-      header_img: "img/" + this.$route.query.bg + ".jpg",
+      text: "",
     }
   },
   methods: {
     //获取当前时间，格式YYYY-MM-DD
-    getNowFormatDate:function () {
+    getNowFormatDate: function () {
       var date = new Date();
       var seperator1 = "-";
       var year = date.getFullYear();
@@ -34,7 +31,37 @@ export default {
       }
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
+    },
+    handleOnSave(text, html) {
+      this.msgShow = "---\n" +
+          "layout:     post\n" +
+          "title:      \"" + this.$route.query.title + "\"\n" +
+          "subtitle:   \" " + this.$route.query.subtitle + "\"\n" +
+          "date:       " + this.getNowFormatDate() + " 12:00:00\n" +
+          "author:     \"" + this.$route.query.author + "\"\n" +
+          "header-img: \"img/" + this.$route.query.bg + ".jpg\"\n" +
+          "catalog: true\n" +
+          "tags:\n";
+      var tags = this.$route.query.tags.split(',');
+      for (var i = 0; i < tags.length; i++) {
+        this.msgShow += "    - " + tags[i] + "\n";
+      }
+      this.msgShow += "---\n" + text;
+      var content = this.msgShow;
+      var file = new File([content], this.getNowFormatDate() + "-name.markdown", {type: "text/plain;charset=utf-8"});
+      saveAs(file);
     }
   }
 }
 </script>
+
+<style scoped>
+.footer {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+</style>
