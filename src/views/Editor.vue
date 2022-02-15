@@ -36,7 +36,7 @@ export default {
       this.msgShow = "---\n" +
           "layout:     post\n" +
           "title:      \"" + this.$route.query.title + "\"\n" +
-          "subtitle:   \" " + this.$route.query.subtitle + "\"\n" +
+          "subtitle:   \"" + this.$route.query.subtitle + "\"\n" +
           "date:       " + this.getNowFormatDate() + " 12:00:00\n" +
           "author:     \"" + this.$route.query.author + "\"\n" +
           "header-img: \"img/" + this.$route.query.bg + ".jpg\"\n" +
